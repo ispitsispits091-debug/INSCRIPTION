@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<!-- ISPITSM Marrakech - Formulaire d'Inscription avec Google Sheets -->
-<html lang="fr">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ISPITSM Marrakech - Inscription & Réinscription</title>
+<!-- saved from url=(0059)file:///C:/Users/TAOUFIQ/Downloads/inion-success.html -->
+<html lang="fr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ISPITSM Marrakech - Inion &amp; Réinscription</title>
 
 <style>
 * {
@@ -179,15 +178,10 @@ button {
     color: white;
 }
 
-.btn-submit:hover:not(:disabled) {
+.btn-submit:hover {
     background: linear-gradient(135deg, #004d73 0%, #003d5c 100%);
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(0, 102, 153, 0.3);
-}
-
-.btn-submit:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
 }
 
 .btn-reset {
@@ -199,8 +193,9 @@ button {
     background: #5a6268;
 }
 
-/* ============= MESSAGES ============= */
+/* ============= MESSAGES DE SUCCÈS ============= */
 
+/* Conteneur pour les messages */
 .message-container {
     position: fixed;
     top: 20px;
@@ -209,6 +204,7 @@ button {
     max-width: 450px;
 }
 
+/* Animation d'entrée */
 @keyframes slideIn {
     from {
         transform: translateX(500px);
@@ -220,6 +216,7 @@ button {
     }
 }
 
+/* Animation de sortie */
 @keyframes slideOut {
     from {
         transform: translateX(0);
@@ -246,6 +243,7 @@ button {
     animation: slideOut 0.4s ease-in forwards;
 }
 
+/* Message de succès */
 .message.success {
     background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
     color: #155724;
@@ -270,6 +268,7 @@ button {
     }
 }
 
+/* Message d'erreur */
 .message.error {
     background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
     color: #721c24;
@@ -288,12 +287,14 @@ button {
     20%, 40%, 60%, 80% { transform: translateX(5px); }
 }
 
+/* Message d'avertissement */
 .message.warning {
     background: linear-gradient(135deg, #fff3cd 0%, #ffeeba 100%);
     color: #856404;
     border-left: 4px solid #ffc107;
 }
 
+/* Message d'information */
 .message.info {
     background: linear-gradient(135deg, #d1ecf1 0%, #bee5eb 100%);
     color: #0c5460;
@@ -338,8 +339,7 @@ button {
     opacity: 1;
 }
 
-/* ============= MODAL ============= */
-
+/* Modal de confirmation */
 .modal-overlay {
     display: none;
     position: fixed;
@@ -602,8 +602,8 @@ footer {
 
 <header>
     <h1>ISPITSM Marrakech</h1>
-    <h3>Inscription et Réinscription aux Semestre</h3>
-    <p>Année Académique 2026/2027</p>
+    <h3>Inscription et Réinscription aux Semestres </h3>
+    <p>Année Académique 2025-2026</p>
 </header>
 
 <div class="container">
@@ -720,7 +720,6 @@ footer {
         </div>
     </div>
 
-
     <div class="form-row">
         <div class="form-group">
             <label for="promotion" class="required">Promotion (Année d'entrée)</label>
@@ -769,7 +768,7 @@ footer {
 
 <!-- Boutons d'action -->
 <div class="button-group">
-    <button type="submit" class="btn-submit" id="submitBtn">✓ Valider l'inscription</button>
+    <button type="submit" class="btn-submit">✓ Valider l'inscription</button>
     <button type="reset" class="btn-reset">↻ Réinitialiser le formulaire</button>
 </div>
 
@@ -810,10 +809,6 @@ footer {
 </footer>
 
 <script>
-// ==========================================
-// CONFIGURATION - À REMPLACER PAR VOTRE URL
-// ==========================================
-const GOOGLE_SHEETS_URL = https://script.google.com/macros/s/AKfycbw9RORFqO57ndoaX-8YwlCIz_iJjSpKmtj6HZKPHGlFgsl8yw6xWqovjnJPFPMlrsWc/execoption</span> </div> </div>
 // Classe pour gérer les messages
 class MessageManager {
     constructor(containerId) {
@@ -892,9 +887,8 @@ class MessageManager {
 const messageManager = new MessageManager('messageContainer');
 
 // Récupérer le formulaire
-const form = document.getElementById('inscriptionForm');
+const form = document.getElementById('inionForm');
 const modalOverlay = document.getElementById('modalOverlay');
-const submitBtn = document.getElementById('submitBtn');
 
 // Fonction de validation
 function validateForm() {
@@ -966,7 +960,7 @@ function isValidPhone(phone) {
 }
 
 // Gestion de la soumission du formulaire
-form.addEventListener('submit', async function(e) {
+form.addEventListener('submit', function(e) {
     e.preventDefault();
     
     // Réinitialiser les messages d'erreur
@@ -977,46 +971,17 @@ form.addEventListener('submit', async function(e) {
     const validation = validateForm();
     
     if (validation.isValid) {
-        // Désactiver le bouton submit
-        submitBtn.disabled = true;
-        
         // Afficher un message de traitement
-        messageManager.info('⏳ Traitement', 'Votre inscription est en cours d\'enregistrement...');
+        messageManager.info('⏳ Traitement', 'Votre inion est en cours de traitement...');
         
-        try {
-            // Récupérer les données du formulaire
-            const formData = new FormData(form);
-            const data = Object.fromEntries(formData);
-            
-            // Ajouter le numéro de référence et la date
-            const refNumber = generateReferenceNumber();
-            data.numeroReference = refNumber;
-            data.dateInscription = new Date().toLocaleString('fr-FR');
-            
-            // Envoyer les données à Google Sheets
-            const response = await fetch(GOOGLE_SHEETS_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data)
-            });
-            
-            // Afficher le modal de succès
-            setTimeout(() => {
-                showSuccessModal(data);
-            }, 1000);
-            
-        } catch (error) {
-            console.error('Erreur:', error);
-            messageManager.error(
-                '❌ Erreur d\'envoi',
-                'Une erreur est survenue lors de l\'enregistrement. Veuillez réessayer.',
-                error.message
-            );
-            submitBtn.disabled = false;
-        }
+        // Récupérer les données du formulaire
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData);
+        
+        // Simuler un délai de traitement
+        setTimeout(() => {
+            showSuccessModal(data);
+        }, 1500);
         
     } else {
         // Afficher les erreurs
@@ -1034,11 +999,11 @@ function showSuccessModal(data) {
     const modalTitle = document.getElementById('modalTitle');
     const modalMessage = document.getElementById('modalMessage');
     const modalDetails = document.getElementById('modalDetails');
-    const refNumber = data.numeroReference;
+    const refNumber = generateReferenceNumber();
     
     document.getElementById('referenceNumber').textContent = `#INS-${refNumber}`;
     modalTitle.textContent = `Bienvenue, ${data.prenom} ${data.nom}!`;
-    modalMessage.textContent = 'Votre inscription a été enregistrée avec succès!';
+    modalMessage.textContent = 'Votre inion a été enregistrée avec succès!';
     
     // Construire les détails
     const detailsHtml = `
@@ -1056,7 +1021,7 @@ function showSuccessModal(data) {
         </div>
         <div class="modal-detail-item">
             <span class="modal-detail-label">📝 Type:</span>
-            <span class="modal-detail-value">${data.type === 'inscription' ? 'Première inscription' : 'Réinscription'}</span>
+            <span class="modal-detail-value">${data.type === 'inion' ? 'Première inion' : 'Réinion'}</span>
         </div>
         <div class="modal-detail-item">
             <span class="modal-detail-label">✉️ Email:</span>
@@ -1078,16 +1043,13 @@ function showSuccessModal(data) {
     
     // Message de succès
     messageManager.success(
-        '🎉 Inscription Réussie!',
+        '🎉 Inion Réussie!',
         'Vérifiez votre email pour les prochaines étapes.',
         `Numéro de référence: <strong>#INS-${refNumber}</strong>`
     );
     
-    // Sauvegarder les données localement
-    saveInscriptionData(data);
-    
-    // Réactiver le bouton
-    submitBtn.disabled = false;
+    // Sauvegarder les données
+    saveInionData(data, refNumber);
 }
 
 function getFiliereName(code) {
@@ -1105,8 +1067,13 @@ function generateReferenceNumber() {
     return Math.floor(Math.random() * 1000000).toString().padStart(6, '0');
 }
 
-function saveInscriptionData(data) {
-    localStorage.setItem('derniere-inscription', JSON.stringify(data));
+function saveInionData(data, refNumber) {
+    const inion = {
+        ...data,
+        dateInion: new Date().toLocaleString('fr-FR'),
+        numeroReference: refNumber
+    };
+    localStorage.setItem('derniere-inion', JSON.stringify(inion));
 }
 
 function closeModal() {
@@ -1115,9 +1082,9 @@ function closeModal() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-function printInscription() {
-    const inscription = JSON.parse(localStorage.getItem('derniere-inscription'));
-    if (inscription) {
+function printInion() {
+    const inion = JSON.parse(localStorage.getItem('derniere-inion'));
+    if (inion) {
         const printContent = `
             <!DOCTYPE html>
             <html>
@@ -1134,46 +1101,46 @@ function printInscription() {
             <body>
                 <div class="header">
                     <h1>ISPITSM Marrakech</h1>
-                    <p>Confirmation d'Inscription</p>
+                    <p>Confirmation d'Inion</p>
                 </div>
                 <div class="reference">
-                    <p><strong>Numéro de Référence:</strong> #INS-${inscription.numeroReference}</p>
-                    <p><strong>Date d'Inscription:</strong> ${inscription.dateInscription}</p>
+                    <p><strong>Numéro de Référence:</strong> #INS-${inion.numeroReference}</p>
+                    <p><strong>Date d'Inion:</strong> ${inion.dateInion}</p>
                 </div>
                 <div class="details">
                     <h3>Informations Personnelles</h3>
                     <div class="detail-row">
                         <span>Nom:</span>
-                        <span>${inscription.nom}</span>
+                        <span>${inion.nom}</span>
                     </div>
                     <div class="detail-row">
                         <span>Prénom:</span>
-                        <span>${inscription.prenom}</span>
+                        <span>${inion.prenom}</span>
                     </div>
                     <div class="detail-row">
                         <span>Email:</span>
-                        <span>${inscription.email}</span>
+                        <span>${inion.email}</span>
                     </div>
                     <div class="detail-row">
                         <span>Téléphone:</span>
-                        <span>${inscription.telephone || 'N/A'}</span>
+                        <span>${inion.telephone || 'N/A'}</span>
                     </div>
                     <h3>Informations Académiques</h3>
                     <div class="detail-row">
                         <span>Filière:</span>
-                        <span>${getFiliereName(inscription.filiere)}</span>
+                        <span>${getFiliereName(inion.filiere)}</span>
                     </div>
                     <div class="detail-row">
                         <span>Option:</span>
-                        <span>${inscription.option}</span>
+                        <span>${inion.option}</span>
                     </div>
                     <div class="detail-row">
                         <span>Semestre:</span>
-                        <span>${inscription.semestre}</span>
+                        <span>${inion.semestre}</span>
                     </div>
                     <div class="detail-row">
                         <span>Type:</span>
-                        <span>${inscription.type === 'inscription' ? 'Première inscription' : 'Réinscription'}</span>
+                        <span>${inion.type === 'inion' ? 'Première inion' : 'Réinion'}</span>
                     </div>
                 </div>
             </body>
@@ -1187,33 +1154,33 @@ function printInscription() {
     }
 }
 
-function downloadInscription() {
-    const inscription = JSON.parse(localStorage.getItem('derniere-inscription'));
-    if (inscription) {
+function downloadInion() {
+    const inion = JSON.parse(localStorage.getItem('derniere-inion'));
+    if (inion) {
         const content = `
-CONFIRMATION D'INSCRIPTION
+CONFIRMATION D'INION
 ISPITSM Marrakech
 ==================================================
 
-NUMÉRO DE RÉFÉRENCE: #INS-${inscription.numeroReference}
-DATE D'INSCRIPTION: ${inscription.dateInscription}
+NUMÉRO DE RÉFÉRENCE: #INS-${inion.numeroReference}
+DATE D'INION: ${inion.dateInion}
 
 INFORMATIONS PERSONNELLES
 ==================================================
-Nom: ${inscription.nom}
-Prénom: ${inscription.prenom}
-Email: ${inscription.email}
-Téléphone: ${inscription.telephone || 'N/A'}
-CNI: ${inscription.cni}
-Nationalité: ${inscription.nationalite}
+Nom: ${inion.nom}
+Prénom: ${inion.prenom}
+Email: ${inion.email}
+Téléphone: ${inion.telephone || 'N/A'}
+CNI: ${inion.cni}
+Nationalité: ${inion.nationalite}
 
 INFORMATIONS ACADÉMIQUES
 ==================================================
-Filière: ${getFiliereName(inscription.filiere)}
-Option: ${inscription.option}
-Semestre: ${inscription.semestre}
-Année Universitaire: ${inscription.anneeUniversitaire}
-Type d'Inscription: ${inscription.type === 'inscription' ? 'Première inscription' : 'Réinscription'}
+Filière: ${getFiliereName(inion.filiere)}
+Option: ${inion.option}
+Semestre: ${inion.semestre}
+Année Universitaire: ${inion.anneeUniversitaire}
+Type d'Inion: ${inion.type === 'inion' ? 'Première inion' : 'Réinion'}
 
 ==================================================
 © 2025-2026 ISPITSM Marrakech
@@ -1223,7 +1190,7 @@ Type d'Inscription: ${inscription.type === 'inscription' ? 'Première inscriptio
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = `inscription-${inscription.numeroReference}.txt`;
+        a.download = `inion-${inion.numeroReference}.txt`;
         a.click();
         window.URL.revokeObjectURL(url);
     }
@@ -1278,11 +1245,11 @@ modalOverlay.addEventListener('click', function(e) {
 window.addEventListener('load', function() {
     messageManager.success(
         '👋 Bienvenue!',
-        'Remplissez le formulaire ci-dessous pour procéder à votre inscription.',
+        'Remplissez le formulaire ci-dessous pour procéder à votre inion.',
         'Tous les champs marqués d\'un astérisque (*) sont obligatoires.'
     );
 });
-</script>
+</>
 
-</body>
-</html>
+
+</body></html>
